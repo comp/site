@@ -4,6 +4,7 @@ var multer  = require('multer');
 var mime = require('mime');
 var path = require('path');
 
+//storing function for upload action
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -24,11 +25,7 @@ var storage = multer.diskStorage({
     }
   }
 })
-
 var upload = multer({ storage: storage }).single('file');
-
-
-
 
 
 /* GET home page. */
@@ -36,23 +33,31 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'comp.pw~' });
 });
 
+
+//uploadform
 router.get('/upload', function(req,res,next) {
     res.render('uploadform', {title: 'comp.pw~ upload'});
 });
 
+//uploadaction
 router.post('/upload', function (req, res, next)
 {
     upload(req, res, function (err) {
-    if (err) {
-        console.log(err)
-      res.render('uploaded', {title: 'comp.pw~ upload', error: err})
-    }
-    else
-    {
-        res.render('uploaded', {title: 'comp.pw~ upload', file: req.file.path})
-    }
+      if (err) {
+          console.log(err)
+        res.render('uploaded', {title: 'comp.pw~ upload', error: err})
+      }
+      else
+      {
+          res.render('uploaded', {title: 'comp.pw~ upload', file: req.file.path})
+      }
+    });
 });
 
+
+router.get('/paste', function(req,res,next)
+{
+  res.render('pasteform', {title: 'comp.pw~ paste'});
 });
 
 module.exports = router;

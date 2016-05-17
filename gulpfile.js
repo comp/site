@@ -4,11 +4,20 @@ var concat = require('gulp-concat');
 var minify = require('gulp-minify-css');
 var merge = require('merge-stream');
 var stripCssComments = require('gulp-strip-css-comments');
-
+var uglify = require('gulp-uglify');
 
 var input = './stylesheets/*.scss';
 var output = './public/css';
 var uikit = './public/css/uikit.min.css';
+
+var js = './public/js/*.js';
+
+gulp.task('js', function() {
+    var jsStream = gulp.src(js)
+    .pipe(uglify())
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('./public/js/dist'));
+});
 
 gulp.task('style', function() {
     var scssStream = gulp.src(input)
@@ -28,3 +37,5 @@ gulp.task('style', function() {
 
     return mergedStream;
 });
+
+gulp.task('default', ['style', 'js']);

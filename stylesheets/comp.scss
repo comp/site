@@ -1,5 +1,6 @@
 @import "mixins";
 @import url(http://assets.tumblr.com/fonts/streetscript/stylesheet.css?v=1);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700);
 
 $primary-color: #306;
 $white: #ffffff;
@@ -17,6 +18,7 @@ html, body{
     background-color: $primary-color;
     font: 30px $font-stack;
     color: $white;
+    height: 100%;
 }
 
 a{
@@ -76,4 +78,40 @@ input[type=button],input[type=submit]:hover
 {
     background-color: mix($primary-color, $white, 95%);
     color: mix($primary-color, $white, 55%);
+}
+
+#paste
+{
+    font-family: 'Source Code Pro', ;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    color: $white;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-direction: column;
+    resize: auto;
+    cursor: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: left;
+    height:auto;
+    vertical-align: text-top;
+    box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+    background: #202020;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 0;
 }
