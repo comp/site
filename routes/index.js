@@ -3,6 +3,7 @@ var router = express.Router();
 var multer  = require('multer');
 var mime = require('mime');
 var path = require('path');
+var util = require('util');
 
 //storing function for upload action
 var storage = multer.diskStorage({
@@ -58,6 +59,11 @@ router.post('/upload', function (req, res, next)
 router.get('/paste', function(req,res,next)
 {
   res.render('pasteform', {title: 'comp.pw~ paste'});
+});
+
+router.post('/paste', function(req,res,next)
+{
+  res.render('pasteresult', {title: 'comp.pw~ pasted', message: util.inspect(req.body.paste)});
 });
 
 module.exports = router;

@@ -79,7 +79,14 @@ input[type=button],input[type=submit]:hover
     background-color: mix($primary-color, $white, 95%);
     color: mix($primary-color, $white, 55%);
 }
-
+.source
+{
+    font-family: 'Source Code Pro', ;
+    font-size:14px;
+    background-color:white;
+    color:black;
+    text-align:left;
+}
 #paste
 {
     font-family: 'Source Code Pro', ;
