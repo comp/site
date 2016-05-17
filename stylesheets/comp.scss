@@ -1,0 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Courgette);
+
+$primary-color: #306;
+$white: #ffffff;
+$font-stack: 'Courgette', cursive;
+
+body{
+    background-color: $primary-color;
+    font: 100% $font-stack;
+    color: $white;
+}
