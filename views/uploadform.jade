@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    div.uk-grid
+        div.uk-width-1-1.uk-clearfix
+            div.uk-panel.uk-panel-space.center.uk-width-1-1
+                center
+                    form.uk-form(method="post",enctype="multipart/form-data")
+                        input(type="file", name="file", id="file").uk-form-row.uk-form-large
+                        br
+                        input(type="submit", value="Upload").uk-form-row.uk-form-large.uk-button#submit

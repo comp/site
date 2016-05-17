@@ -5,11 +5,30 @@ $primary-color: #306;
 $white: #ffffff;
 $font-stack: 'Streetscript', sans-serif;
 
+::selection{
+    background: mix($primary-color, $white, 70%);
+}
+
+::-moz-selection{
+    background: mix($primary-color, $white, 10%);
+}
+
 html, body{
     background-color: $primary-color;
-    font: 100% $font-stack;
+    font: 30px $font-stack;
     color: $white;
 }
+
+a{
+    color: $white;
+    text-decoration: underline;
+}
+
+a:hover{
+    color: mix($primary-color, $white, 50%);
+    text-decoration: underline;
+}
+
 
 h1{
     color: mix($primary-color, $white, 50%);
@@ -18,15 +37,22 @@ h1{
 .compbutton
 {
     min-height: 30px;
-    padding: 20px;
+    padding: 30px;
     font-size: 40px;
     font-weight:bold;
     @include rounded(10px);
 }
 
-.uk-nav-dropdown>li
+li>a>i
 {
-    font-size:30px;
+    font-size:100%;
+    color: $primary-color;
+    margin-left:10px;
+}
+
+.uk-dropdown
+{
+    width:100%;
 }
 .uk-nav-dropdown>li>a:hover
 {
@@ -36,4 +62,18 @@ h1{
 .uk-dropdown
 {
     @include rounded(5px);
+}
+
+input[type=button],input[type=submit]
+{
+    background-color: $primary-color;
+    color: $white;
+    @include rounded(5px);
+    border:3px solid mix($primary-color, $white, 90%);
+}
+
+input[type=button],input[type=submit]:hover
+{
+    background-color: mix($primary-color, $white, 95%);
+    color: mix($primary-color, $white, 55%);
 }

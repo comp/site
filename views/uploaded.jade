@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    div.uk-grid
+        div.uk-width-1-1.uk-clearfix
+            div.uk-panel.uk-panel-space.center.uk-width-1-1
+                center
+                    if file
+                        a(href=file) #{file}
+                    if error
+                        p= error
