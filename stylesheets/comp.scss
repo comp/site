@@ -1,11 +1,39 @@
-@import url(https://fonts.googleapis.com/css?family=Courgette);
+@import "mixins";
+@import url(http://assets.tumblr.com/fonts/streetscript/stylesheet.css?v=1);
 
 $primary-color: #306;
 $white: #ffffff;
-$font-stack: 'Courgette', cursive;
+$font-stack: 'Streetscript', sans-serif;
 
-body{
+html, body{
     background-color: $primary-color;
     font: 100% $font-stack;
     color: $white;
+}
+
+h1{
+    color: mix($primary-color, $white, 50%);
+}
+
+.compbutton
+{
+    min-height: 30px;
+    padding: 20px;
+    font-size: 40px;
+    font-weight:bold;
+    @include rounded(10px);
+}
+
+.uk-nav-dropdown>li
+{
+    font-size:30px;
+}
+.uk-nav-dropdown>li>a:hover
+{
+    background-color: mix($primary-color, $white, 90%);
+}
+
+.uk-dropdown
+{
+    @include rounded(5px);
 }

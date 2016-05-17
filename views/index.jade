@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    div.uk-grid
+        div.uk-width-1-1.uk-clearfix
+            div.uk-panel.uk-panel-space.center.uk-width-1-1
+                center
+                    div.uk-button-dropdown(data-uk-dropdown="{mode:'click'}")
+                        button.uk-button.compbutton comp.pw
+                            i.uk-icon-caret-down(style="margin-left:20px;")
+                        div.uk-dropdown.uk-dropdown-bottom
+                            ul.uk-nav.uk-nav-dropdown
+                                li: a Steam
+                                li: a Paste
+                                li: a Upload
+                                li: a Tumblr
+                                li: a Hackforums
+
+        div.uk-width-1-1.uk-position-bottom
+            center
+                img(src="http://i.imgur.com/9cH3WFb.png",width="650px",height="200px")

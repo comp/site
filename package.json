@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "gulp style",
     "start": "node ./bin/www"
   },
   "repository": {
