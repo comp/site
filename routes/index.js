@@ -55,6 +55,17 @@ router.post('/upload', function (req, res, next)
     });
 });
 
+function isboss(req,res,next)
+{
+  console.log(req.hostname);
+  console.log(req.ip);
+  return next();
+}
+
+router.get('/uploads', isboss, function(req, res, next)
+{
+  res.send('admin screen dog');
+})
 
 router.get('/paste', function(req,res,next)
 {
