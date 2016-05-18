@@ -4,6 +4,8 @@ var multer  = require('multer');
 var mime = require('mime');
 var path = require('path');
 var util = require('util');
+var fs = require('fs');
+
 
 //storing function for upload action
 var storage = multer.diskStorage({
@@ -57,14 +59,35 @@ router.post('/upload', function (req, res, next)
 
 function isboss(req,res,next)
 {
-  if(req.ip == '::ffff:69.23.147.201' || req.ip == 'localhost')
+  if(req.ip == '::ffff:69.23.147.201' || req.ip == 'localhost' || req.ip == '::1')
     return next();
   res.send("no");
 }
 
 router.get('/uploads', isboss, function(req, res, next)
 {
-  res.send('admin screen dog');
+  fs.readdir('./uploads', function(err, files)
+  {
+    if(err)
+      res.send(err);
+    else
+    {
+      res.render('uploadlist', {title: 'comp.pw~ uploads', files: files})
+    }
+  })
+
+});
+
+router.get('/deletefile/:file', isboss, function(req,res,next)
+{
+
+  fs.unlink('./uploads/'+req.params.file, function(err)
+  {
+    if(err)
+      res.send(err)
+    else
+      res.redirect('/uploads');
+  })
 })
 
 router.get('/paste', function(req,res,next)

@@ -122,3 +122,23 @@ input[type=button],input[type=submit]:hover
     background-color: rgba(0, 0, 0, 0.3);
     border: 0;
 }
+
+table
+{
+    color:black;
+    font-family: 'Source Code Pro', ;
+    font-size:20px;
+}
+
+thead
+{
+    color:$white;
+}
+tr
+{
+    background-color: mix($white, $primary-color, 30%);
+}
+
+td > a,td > a:hover{
+    color: black;
+}
