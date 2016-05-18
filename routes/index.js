@@ -57,9 +57,9 @@ router.post('/upload', function (req, res, next)
 
 function isboss(req,res,next)
 {
-  console.log(req.hostname);
-  console.log(req.ip);
-  return next();
+  if(req.ip == '::ffff:69.23.147.201' || req.ip == 'localhost')
+    return next();
+  res.send("no");
 }
 
 router.get('/uploads', isboss, function(req, res, next)
