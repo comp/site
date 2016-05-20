@@ -20,7 +20,7 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     if(file){
         var extension = path.extname(file.originalname);
-        var valid = ['.ico','.jpg','.jpeg','.gif','.wav','.mp3','.bmp','.png','.txt','.mp4','.avi'];
+        var valid = ['.ico','.jpg','.jpeg','.gif','.wav','.mp3','.bmp','.png','.txt','.mp4','.avi', '.webm', '.torrent'];
 
         if(valid.indexOf(extension)==-1){
             // console.log('invalid extension');
