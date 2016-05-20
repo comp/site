@@ -35,3 +35,4 @@ node_modules
 #osx
 .DS_Store
 uploads
+data.db

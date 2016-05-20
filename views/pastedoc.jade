@@ -5,5 +5,4 @@ block content
         div.uk-width-1-1.uk-clearfix
             div.uk-panel.uk-panel-space.center.uk-width-1-1
                 center
-                    if message
-                        a(href="#{message}") #{message}
+                    textarea(cols="80",rows="25",placeholder="",id="paste",name="paste").uk-form-lage.uk-width-1-1= paste

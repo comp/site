@@ -6,6 +6,11 @@ var path = require('path');
 var util = require('util');
 var fs = require('fs');
 
+var Datastore = require('nedb')
+  , db = new Datastore({ filename: 'data.db', autoload: true });
+
+
+
 
 //storing function for upload action
 var storage = multer.diskStorage({
@@ -97,7 +102,35 @@ router.get('/paste', function(req,res,next)
 
 router.post('/paste', function(req,res,next)
 {
-  res.render('pasteresult', {title: 'comp.pw~ pasted', message: util.inspect(req.body.paste)});
+  var doc = {
+    text: req.body.paste,
+    upload: new Date()
+  };
+
+db.insert(doc, function (err, newDoc) {   // Callback is optional
+  if(err)
+    res.send(err);
+  else
+  {
+    res.render('pasteresult', {title: 'comp.pw~ pasted', message: '/paste/'+newDoc._id});
+  }
 });
+});
+
+router.get('/paste/:id', function(req,res,next)
+{
+  db.findOne({ _id: req.params.id }, function (err, doc) {
+  // doc is the document Mars
+  // If no document is found, doc is null
+  if(err)
+    res.send(err)
+  else{
+    console.log(doc)
+    res.render('pastedoc', {title: 'comp.pw~ '+doc._id, paste: doc.text})
+  }
+});
+
+
+})
 
 module.exports = router;
