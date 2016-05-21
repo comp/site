@@ -6,14 +6,12 @@ var path = require('path');
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
+var async = require('async');
+var tools = require('./tools.js');
 
 
 var Datastore = require('nedb')
   , db = new Datastore({ filename: 'data.db', autoload: true });
-
-
-
-
 //storing function for upload action
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -36,6 +34,35 @@ var storage = multer.diskStorage({
   }
 })
 var upload = multer({ storage: storage }).single('file');
+
+
+function makeid(id)
+{
+  async.forever(
+  function(next) {
+    var text = "";
+    var possible = "abcdefghijklmnopqrstuvwxyz";
+
+    for( var i=0; i < 4; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    var checkdest = path.resolve('webms/'+text+".webm")
+    fs.access(checkdest, fs.F_OK, function(err) {
+        if (err) {
+            next(text);
+        } else {
+            console.log(text+" already exists, skipping")
+            next()
+        }
+    });
+  },
+  function(err) {
+      // console.log(err)
+      id(err)
+  }
+);
+
+
+}
 
 
 /* GET home page. */
@@ -64,6 +91,17 @@ router.get('/compf/:vid', function(req,res,next)
 router.get('/compf/:vid/video.webm', function(req,res,next)
 {
     res.sendFile(path.resolve('webms/'+req.params.vid+".webm"));
+})
+
+router.get('/savewebm/*', isboss, function(req,res,next)
+{
+  var url = req.params[0]
+  makeid(function(id)
+  {
+    tools.down(url, path.resolve('webms/')+"/"+id+'.webm', function(){
+      res.redirect('/compf/'+id+'/');
+    })
+  })
 })
 
 
