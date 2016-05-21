@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Share+Tech+Mono);
+
+svg {
+  width: 600px;
+  height: 120px;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  margin: 0 0;
+  top:-40px;
+}
+
+.vid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    overflow: hidden;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}

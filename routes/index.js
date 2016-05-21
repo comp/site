@@ -5,6 +5,8 @@ var mime = require('mime');
 var path = require('path');
 var util = require('util');
 var fs = require('fs');
+var path = require('path');
+
 
 var Datastore = require('nedb')
   , db = new Datastore({ filename: 'data.db', autoload: true });
@@ -40,6 +42,23 @@ var upload = multer({ storage: storage }).single('file');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'comp.pw~' });
 });
+
+router.get('/compf', function(req, res, next) {
+  fs.readdir('./webms', function(e,files)
+  {
+    var title = files.length+ " webms"
+    res.render('compf', {title: title});
+  })
+});
+
+router.get('/video.webm', function(req,res,next)
+{
+  fs.readdir('./webms', function(e,files)
+  {
+    var webm = files[Math.floor(Math.random()*files.length)];
+    res.sendFile(path.resolve('webms/'+webm));
+  })
+})
 
 
 //uploadform
@@ -129,6 +148,10 @@ router.get('/paste/:id', function(req,res,next)
     res.render('pastedoc', {title: 'comp.pw~ '+doc._id, paste: doc.text})
   }
 });
+
+
+
+
 
 
 })
