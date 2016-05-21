@@ -46,18 +46,24 @@ router.get('/', function(req, res, next) {
 router.get('/compf', function(req, res, next) {
   fs.readdir('./webms', function(e,files)
   {
-    var title = files.length+ " webms"
-    res.render('compf', {title: title});
+    var webm = files[Math.floor(Math.random()*files.length)];
+    var webmu = webm.split(".")[0]+"/"
+    res.redirect(302, '/compf/'+webmu);
   })
 });
 
-router.get('/video.webm', function(req,res,next)
+router.get('/compf/:vid', function(req,res,next)
 {
   fs.readdir('./webms', function(e,files)
   {
-    var webm = files[Math.floor(Math.random()*files.length)];
-    res.sendFile(path.resolve('webms/'+webm));
+    var t = files.length+" webms"
+    res.render('compf', {title: t});
   })
+})
+
+router.get('/compf/:vid/video.webm', function(req,res,next)
+{
+    res.sendFile(path.resolve('webms/'+req.params.vid+".webm"));
 })
 
 
