@@ -10,6 +10,16 @@ var Datastore = require('nedb'),
         filename: 'data.db',
         autoload: true
     });
+var linkdb = new Datastore({
+    filename: 'link.db',
+    autoload: true
+})
+linkdb.ensureIndex({
+    fieldName: 'id',
+    unique: true
+}, function(err) {
+    if (err) console.log(err);
+});
 //storing function for upload action
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -160,6 +170,56 @@ router.get('/paste/:id', function(req, res, next) {
             res.render('pastedoc', {
                 title: 'comp.pw~ ' + doc._id,
                 paste: doc.text
+            })
+        }
+    });
+})
+router.get('/link', function(req, res) {
+    res.render('linkform', {
+        title: 'comp.pw~ link shortener'
+    })
+});
+router.post('/makelink', function(req, res) {
+    var olink = req.body.link;
+    tools.makelinkid(olink, linkdb, function(id, error) {
+        if (error) res.send(error)
+        else {
+            var linkobject = {
+                url: olink,
+                id: id,
+                visits: 0
+            }
+            linkdb.insert(linkobject, function(err, newlink) {
+                if (err) {
+                    res.render('linkresult', {
+                        error: err
+                    })
+                } else {
+                    res.render('linkresult', {
+                        url: 'v/' + newlink.id
+                    })
+                }
+            })
+        }
+    })
+});
+router.get('/v/:id', function(req, res) {
+    linkdb.findOne({
+        id: req.params.id
+    }, function(err, doc) {
+        if (err) res.send(err)
+        else {
+            linkdb.update({
+                _id: doc._id
+            }, {
+                $set: {
+                    visits: doc.visits + 1
+                }
+            }, function(updateerr) {
+                if (updateerr) res.send(updateerr)
+                else {
+                    res.redirect(doc.url)
+                }
             })
         }
     });

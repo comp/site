@@ -52,11 +52,16 @@ li>a>i
     margin-left:10px;
 }
 
+li>a
+{
+    font-size:90%;
+}
+
 .uk-dropdown
 {
     width:100%;
 }
-.uk-nav-dropdown>li>a:hover
+.uk-nav-dropdown>li>a:hover,.uk-nav-dropdown>li>a:active,.uk-nav-dropdown>li>a:focus
 {
     background-color: mix($primary-color, $white, 90%);
 }
@@ -86,6 +91,10 @@ input[type=button],input[type=submit]:hover
     background-color:white;
     color:black;
     text-align:left;
+}
+#link
+{
+    font-family: 'Source Code Pro', ;
 }
 #paste
 {
