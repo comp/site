@@ -181,27 +181,33 @@ router.get('/link', function(req, res) {
 });
 router.post('/makelink', function(req, res) {
     var olink = req.body.link;
-    tools.makelinkid(olink, linkdb, function(id, error) {
-        if (error) res.send(error)
-        else {
-            var linkobject = {
-                url: olink,
-                id: id,
-                visits: 0
-            }
-            linkdb.insert(linkobject, function(err, newlink) {
-                if (err) {
-                    res.render('linkresult', {
-                        error: err
-                    })
-                } else {
-                    res.render('linkresult', {
-                        url: 'v/' + newlink.id
-                    })
+    if (tools.validurl(olink)) {
+        tools.makelinkid(olink, linkdb, function(id, error) {
+            if (error) res.send(error)
+            else {
+                var linkobject = {
+                    url: olink,
+                    id: id,
+                    visits: 0
                 }
-            })
-        }
-    })
+                linkdb.insert(linkobject, function(err, newlink) {
+                    if (err) {
+                        res.render('linkresult', {
+                            error: err
+                        })
+                    } else {
+                        res.render('linkresult', {
+                            url: 'v/' + newlink.id
+                        })
+                    }
+                })
+            }
+        })
+    } else {
+        res.render('linkresult', {
+            error: 'Invalid url boi'
+        });
+    }
 });
 router.get('/v/:id', function(req, res) {
     linkdb.findOne({

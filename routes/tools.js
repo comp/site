@@ -1,5 +1,6 @@
 var request = require('request')
 var fs = require('fs')
+var validUrl = require('valid-url');
 module.exports = {
     down: function(url, path, callback) {
         // console.log('downloading: '+url)
@@ -27,5 +28,12 @@ module.exports = {
                 callback(text)
             }
         });
+    },
+    validurl: function(url) {
+        if (validUrl.isUri(url)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
