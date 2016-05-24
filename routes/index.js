@@ -214,7 +214,7 @@ router.get('/v/:id', function(req, res) {
         id: req.params.id
     }, function(err, doc) {
         if (err) res.send(err)
-        else {
+        else if (doc) {
             linkdb.update({
                 _id: doc._id
             }, {
@@ -227,6 +227,11 @@ router.get('/v/:id', function(req, res) {
                     res.redirect(doc.url)
                 }
             })
+        } else {
+            res.status(404) // HTTP status 404: NotFound
+            .render('linkresult', {
+                error: "Not found"
+            });
         }
     });
 })
