@@ -1,0 +1,44 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://localhost:3000');
+    $("document").ready(function(){
+        var name;
+        UIkit.modal.prompt("Name:", name, function(newvalue){
+            socket.emit('set name', newvalue)
+        });
+
+        $("form").submit(function(e) {
+
+            e.preventDefault();
+            e.returnValue = false;
+
+            // alert($("#textchat").val())
+            socket.emit('send chat', $("#textchat").val());
+            $("#textchat").val('')
+            $("#textchat").focus()
+
+        });
+
+        $("#textchat").val('')
+        $("#textchat").focus()
+    });
+    socket.on('invalid username', function()
+    {
+        var newname;
+        UIkit.modal.prompt("Invalid name try again:", newname, function(newvalue){
+            socket.emit('set name', newvalue)
+        });
+
+    })
+    socket.on('enable', function(){
+        $("#textchat").removeClass('uk-hidden');
+        $("#textchat").val('')
+        $("#textchat").focus()
+    })
+    socket.on('log', function(text)
+    {
+        $("#chat").append(text+"\n")
+        $("#textchat").val('')
+        $("#textchat").focus()
+    });
+</script>

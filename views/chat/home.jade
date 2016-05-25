@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    include script.html
+    div.uk-grid
+        div.uk-width-1-1.uk-clearfix
+            div.uk-panel.uk-panel-space.center.uk-width-1-1
+                center
+                    form.uk-form
+                        div.uk-form-row
+                            textarea(cols="50",rows="25",placeholder="",id="chat",name="chat",readonly).uk-form-lage.uk-width-1-1
+                            p.uk-form-help-block
+                        div.uk-form-row
+                            input(type="text", name="text",id="textchat").uk-form-row.uk-form-large.uk-button.uk-hidden
