@@ -7,12 +7,15 @@ var Datastore = require('nedb'),
 module.exports = {
     checkAdmin: function(socket) {
         if (this.isAdmin(socket)) {
+            console.log(socket.handshake.address + " is admin");
             socket.join('admin');
             // console.log(socket.username + " is admin")
             var b = '<input type="button" id="my-button" class="uk-button" value="Admin" onClick="UIkit.offcanvas.show(\'#my-id\');socket.emit(\'update userlist\');"></input>';
             var oc = '<div id="my-id" class="uk-offcanvas"><div class="uk-offcanvas-bar"><div id="ulist"></div></div>';
             socket.emit('inject', b);
             socket.emit('inject', oc);
+        } else {
+            console.log(socket.handshake.address + " is not admin");
         }
     },
     isAdmin: function(socket) {
