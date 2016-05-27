@@ -37,4 +37,5 @@ node_modules
 uploads
 data.db
 link.db
+bans.db
 webms

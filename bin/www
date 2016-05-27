@@ -6,6 +6,7 @@
 var app = require('../app');
 var debug = require('debug')('comppw:server');
 var http = require('http');
+var tools = require('../routes/chattools.js');
 /**
  * Get port from environment and store in Express.
  */
@@ -17,22 +18,39 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function(socket) {
-    // socket.emit('news', {
-    //     hello: 'world'
-    // });
+    tools.checkban(socket);
     socket.on('set name', function(name) {
         if (name == '') socket.emit('invalid username')
         else {
             socket.username = name;
+            tools.checkAdmin(socket);
             io.sockets.emit('log', '⚡ ' + name + ' connected');
             socket.emit('enable')
+            io.to('admin').emit('userlist', tools.users(io));
         }
     });
     socket.on('send chat', function(text) {
         if (text != '') io.sockets.emit('log', socket.username + ": " + text)
     });
     socket.on('disconnect', function() {
-        io.sockets.emit('log', socket.username + ' disconnected' + ' ⚡')
+        if (socket.kicked) io.sockets.emit('log', socket.username + ' was kicked' + ' 👞');
+        else if (socket.banned) io.sockets.emit('log', socket.username + ' was banned' + ' 🚫');
+        else io.sockets.emit('log', socket.username + ' disconnected' + ' ⚡');
+        io.to('admin').emit('userlist', tools.users(io));
+    })
+    socket.on('update userlist', function() {
+        io.to('admin').emit('userlist', tools.users(io));
+    });
+    socket.on('kick', function(id) {
+        io.sockets.connected[id].kicked = true;
+        socket.broadcast.to(id).emit('kicked');
+        io.sockets.connected[id].disconnect();
+    })
+    socket.on('ban', function(id) {
+        tools.banip(socket.handshake.address);
+        io.sockets.connected[id].banned = true;
+        socket.broadcast.to(id).emit('banned');
+        io.sockets.connected[id].disconnect();
     })
 });
 /**

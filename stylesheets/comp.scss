@@ -138,6 +138,13 @@ input[type=button],input[type=submit]:hover
     border: 0;
 }
 
+#chat
+{
+    max-height:600px;
+    overflow:scroll;
+    min-height:500px;
+    height:auto;
+}
 #textchat
 {
    font-family: 'Source Code Pro', ;
@@ -178,6 +185,12 @@ table
     color:black;
     font-family: 'Source Code Pro', ;
     font-size:20px;
+}
+.uk-offcanvas
+{
+    color:white;
+    font-family: 'Source Code Pro', ;
+    font-size:14px;
 }
 
 thead

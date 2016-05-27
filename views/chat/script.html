@@ -1,12 +1,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var socket = io.connect('http://comp.pw/');
+    var socket = io.connect('http://localhost:3000');
     $("document").ready(function(){
-        var name;
-        UIkit.modal.prompt("Name:", name, function(newvalue){
-            socket.emit('set name', newvalue)
-        });
-
         $("form").submit(function(e) {
 
             e.preventDefault();
@@ -22,6 +17,13 @@
         $("#textchat").val('')
         $("#textchat").focus()
     });
+    socket.on('auth', function()
+    {
+        var name;
+        UIkit.modal.prompt("Name:", name, function(newvalue){
+            socket.emit('set name', newvalue)
+        });
+    })
     socket.on('invalid username', function()
     {
         var newname;
@@ -32,6 +34,7 @@
     })
     socket.on('enable', function(){
         $("#textchat").removeClass('uk-hidden');
+        $("#chat").removeClass('uk-hidden');
         $("#textchat").val('')
         $("#textchat").focus()
     })
@@ -40,5 +43,27 @@
         $("#chat").append(text+"\n")
         $("#textchat").val('')
         $("#textchat").focus()
+        $('#chat').scrollTop($('#chat')[0].scrollHeight);
     });
+    socket.on('inject', function(e)
+    {
+        var element = $($.parseHTML(e));
+        $(".uk-panel").prepend(element);
+    })
+    socket.on('userlist', function(users)
+    {
+        $("#ulist").html(users);
+    })
+    socket.on('kicked', function()
+    {
+        $("#my-id").remove();
+        $("#my-button").remove();
+        $(".uk-panel > center").html("You were kicked");
+    })
+    socket.on('banned', function()
+    {
+        $("#my-id").remove();
+        $("#my-button").remove();
+        $(".uk-panel > center").html("You are banned");
+    })
 </script>

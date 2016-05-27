@@ -8,7 +8,7 @@ block content
                 center
                     form.uk-form
                         div.uk-form-row
-                            textarea(cols="50",rows="25",placeholder="",id="chat",name="chat",readonly).uk-form-lage.uk-width-1-1
+                            div(id="chat",name="chat").uk-form-lage.uk-width-1-1.uk-height-viewport.uk-hidden
                             p.uk-form-help-block
                         div.uk-form-row
-                            input(type="text", name="text",id="textchat").uk-form-row.uk-form-large.uk-button.uk-hidden
+                            input(type="text", name="text",id="textchat",autocomplete="off").uk-form-row.uk-form-large.uk-button.uk-hidden
