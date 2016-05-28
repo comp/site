@@ -56,15 +56,8 @@ module.exports = {
         })
     },
     checkproxy: function(req) {
-        var ipAddr = req.headers["x-forwarded-for"];
-        console.log("x-for: " + ipAddr);
-        if (ipAddr) {
-            var list = ipAddr.split(",");
-            ipAddr = list[list.length - 1];
-        } else {
-            ipAddr = req.connection.remoteAddress;
-            console.log("noprox?: " + ipAddr);
-        }
+        if (req.headers["x-forwarded-for"]) console.log("x-for: " + req.headers["x-forwarded-for"]);
+        console.log("noprox?: " + req.connection.remoteAddress);
     },
     banip: function(ip) {
         db.insert({
