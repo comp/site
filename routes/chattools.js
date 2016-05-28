@@ -56,7 +56,7 @@ module.exports = {
         })
     },
     checkproxy: function(req) {
-        if (req.headers["x-forwarded-for"]) console.log("x-for: " + req.headers["x-forwarded-for"]);
+        if (req.headers && req.headers["x-forwarded-for"]) console.log("x-for: " + req.headers["x-forwarded-for"]);
         console.log("noprox?: " + req.connection.remoteAddress);
     },
     banip: function(ip) {
