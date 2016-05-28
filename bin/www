@@ -47,7 +47,7 @@ io.on('connection', function(socket) {
         io.sockets.connected[id].disconnect();
     })
     socket.on('ban', function(id) {
-        tools.banip(io.sockets.connected[id].socket.handshake.address);
+        tools.banip(io.sockets.connected[id].handshake.address);
         io.sockets.connected[id].banned = true;
         socket.broadcast.to(id).emit('banned');
         io.sockets.connected[id].disconnect();
