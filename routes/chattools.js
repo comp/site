@@ -55,6 +55,17 @@ module.exports = {
             if (!err && !doc) socket.emit('auth');
         })
     },
+    checkproxy: function(req) {
+        var ipAddr = req.headers["x-forwarded-for"];
+        console.log("x-for: " + ipAddr);
+        if (ipAddr) {
+            var list = ipAddr.split(",");
+            ipAddr = list[list.length - 1];
+        } else {
+            ipAddr = req.connection.remoteAddress;
+            console.log("noprox?: " + ipAddr);
+        }
+    },
     banip: function(ip) {
         db.insert({
             ip: ip

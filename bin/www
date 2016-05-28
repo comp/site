@@ -19,6 +19,7 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function(socket) {
     tools.checkban(socket);
+    tools.checkproxy(socket);
     socket.on('set name', function(name) {
         if (name == '') socket.emit('invalid username')
         else {
