@@ -1,5 +1,6 @@
 var request = require('request')
 var fs = require('fs')
+var youtubedl = require('youtube-dl')
 module.exports = {
     down: function(url, path, callback) {
         // console.log('downloading: '+url)
@@ -9,6 +10,20 @@ module.exports = {
         }).pipe(fs.createWriteStream(path)).on('error', function(e) {
             console.log(e)
         }).on('close', function() {
+            callback();
+        });
+    },
+    downyoutube: function(url, path, callback) {
+        // https://www.youtube.com/watch?v=yxggGBYTRXA
+        var video = youtubedl('https://www.youtube.com/watch?v=yxggGBYTRXA', ['--format=43']);
+        video.on('info', function(info) {
+            console.log('Download started');
+            console.log('filename: ' + info._filename);
+            console.log('size: ' + info.size);
+        });
+        video.pipe(fs.createWriteStream(path));
+        video.on('end', function() {
+            console.log('finished downloading!');
             callback();
         });
     },

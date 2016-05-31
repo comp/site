@@ -93,6 +93,14 @@ router.get('/savewebm/*', isboss, function(req, res, next) {
         })
     })
 })
+router.get('/saveyoutube/*', isboss, function(req, res, next) {
+    var url = req.params[0]
+    makeid(function(id) {
+        tools.downyoutube(url, path.resolve('webms/') + "/" + id + '.webm', function() {
+            res.redirect('/compf/' + id + '/');
+        });
+    })
+})
 //uploadform
 router.get('/upload', function(req, res, next) {
     res.render('uploadform', {
