@@ -15,7 +15,7 @@ module.exports = {
     },
     downyoutube: function(url, path, callback) {
         // https://www.youtube.com/watch?v=yxggGBYTRXA
-        var video = youtubedl('https://www.youtube.com/watch?v=yxggGBYTRXA', ['--format=43']);
+        var video = youtubedl(url, ['--format=43']);
         video.on('info', function(info) {
             console.log('Download started');
             console.log('filename: ' + info._filename);

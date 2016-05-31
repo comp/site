@@ -10,9 +10,7 @@ var output = './public/css';
 var uikit = './public/css/uikit.min.css';
 var js = './public/js/*.js';
 gulp.task('js', function() {
-    var jsStream = gulp.src(js)
-        // .pipe(uglify())
-        .pipe(concat('app.js')).pipe(gulp.dest('./public/js/dist'));
+    var jsStream = gulp.src(js).pipe(uglify()).pipe(concat('app.js')).pipe(gulp.dest('./public/js/dist'));
 });
 gulp.task('style', function() {
     var scssStream = gulp.src(input).pipe(sass()).pipe(concat('scss-files.scss'));
