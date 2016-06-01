@@ -94,10 +94,12 @@ router.get('/savewebm/*', isboss, function(req, res, next) {
     })
 })
 router.get('/saveyoutube/*', isboss, function(req, res, next) {
-    var url = req.params[0]
+    // console.log(req.param('v'))
+    var url = 'https://www.youtube.com/watch/?v=' + req.param('v');
     makeid(function(id) {
-        tools.downyoutube(url, path.resolve('webms/') + "/" + id + '.webm', function() {
-            res.redirect('/compf/' + id + '/');
+        tools.downyoutube(url, path.resolve('webms/') + "/" + id + '.webm', function(error) {
+            if (error) res.send(error);
+            else res.redirect('/compf/' + id + '/');
         });
     })
 })

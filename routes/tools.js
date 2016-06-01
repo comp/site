@@ -22,6 +22,10 @@ module.exports = {
             console.log('size: ' + info.size);
         });
         video.pipe(fs.createWriteStream(path));
+        video.on('error', function(error) {
+            console.log("Error: " + error);
+            callback(error);
+        })
         video.on('end', function() {
             console.log('finished downloading!');
             callback();
